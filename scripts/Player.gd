@@ -1,6 +1,11 @@
 extends CharacterBody2D
 
 var speed = 300
+var rocket_scene = preload("res://scenes/rocket.tscn")
+
+func _process(delta):
+	if Input.is_action_just_pressed("shoot"):
+		shoot()
 
 func _physics_process(delta):
 	velocity = Vector2(0,0)
@@ -17,4 +22,8 @@ func _physics_process(delta):
 	global_position = global_position.clamp(Vector2(0,0), screen_size)
 	
 	move_and_slide()
-	
+		
+func shoot():
+	var rocket_instance = rocket_scene.instantiate()
+	add_child(rocket_instance)
+	rocket_instance.global_position.x += 80
